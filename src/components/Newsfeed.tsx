@@ -1,16 +1,12 @@
 import Story from "./Story";
 
 import graphql from "babel-plugin-relay/macro";
-import {
-  useFragment,
-  useLazyLoadQuery,
-  usePaginationFragment,
-} from "react-relay";
-import { NewsfeedQuery as NewsfeedQueryType } from "./__generated__/NewsfeedQuery.graphql";
-import { NewsfeedContentsFragment$key } from "./__generated__/NewsfeedContentsFragment.graphql";
+import { useState } from "react";
+import { useLazyLoadQuery, usePaginationFragment } from "react-relay";
 import InfiniteScrollTrigger from "./InfiniteScrollTrigger";
 import SmallSpinner from "./SmallSpinner";
-import { useState } from "react";
+import { NewsfeedContentsFragment$key } from "./__generated__/NewsfeedContentsFragment.graphql";
+import { NewsfeedQuery as NewsfeedQueryType } from "./__generated__/NewsfeedQuery.graphql";
 
 const NewsfeedQuery = graphql`
   query NewsfeedQuery {
