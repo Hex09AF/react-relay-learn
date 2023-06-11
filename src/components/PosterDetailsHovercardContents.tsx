@@ -2,6 +2,7 @@ import graphql from "babel-plugin-relay/macro";
 import * as React from "react";
 import { PreloadedQuery, useFragment, usePreloadedQuery } from "react-relay";
 import Image from "./Image";
+import OrganizationKind from "./OrganizationKind";
 import Timestamp from "./Timestamp";
 
 import type { PosterDetailsHovercardContentsBodyFragment$key } from "./__generated__/PosterDetailsHovercardContentsBodyFragment.graphql";
@@ -38,6 +39,14 @@ const PosterDetailsHovercardContentsBodyFragment = graphql`
     profilePicture {
       ...ImageFragment
     }
+    ... on Organization {
+      organizationKind
+    }
+    ... on Person {
+      location {
+        name
+      }
+    }
   }
 `;
 
@@ -60,6 +69,12 @@ function PosterDetailsHovercardContentsBody({
         <li>
           Joined <Timestamp time={data.joined} />
         </li>
+        {data.location != null && <li>{data.location.name}</li>}
+        {data.organizationKind != null && (
+          <li>
+            <OrganizationKind kind={data.organizationKind} />
+          </li>
+        )}
       </ul>
       <div className="posterHovercard__buttons">
         <button>Friend</button>
