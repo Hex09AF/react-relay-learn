@@ -5,6 +5,7 @@ import Card from "./Card";
 import Heading from "./Heading";
 import Image from "./Image";
 import PosterByline from "./PosterByline";
+import StoryCommentsSection from "./StoryCommentsSection";
 import StorySummary from "./StorySummary";
 import Timestamp from "./Timestamp";
 import { StoryFragment$key } from "./__generated__/StoryFragment.graphql";
@@ -15,6 +16,7 @@ type Props = {
 
 const StoryFragment = graphql`
   fragment StoryFragment on Story {
+    ...StoryCommentsSectionFragment
     title
     summary
     createdAt
@@ -37,6 +39,7 @@ export default function Story({ story }: Props): React.ReactElement {
       <Timestamp time={data.createdAt} />
       <Image image={data.thumbnail} width={400} height={400} />
       <StorySummary summary={data.summary} />
+      <StoryCommentsSection story={data} />
     </Card>
   );
 }
