@@ -5,6 +5,7 @@ import Comment from "./Comment";
 import LoadMoreCommentsButton from "./LoadMoreCommentsButton";
 import SmallSpinner from "./SmallSpinner";
 import type { StoryCommentsSectionFragment$key } from "./__generated__/StoryCommentsSectionFragment.graphql";
+import StoryCommentsComposer from "./StoryCommentsComposer";
 
 const { useState, useTransition } = React;
 
@@ -31,6 +32,7 @@ const StoryCommentsSectionFragment = graphql`
         hasNextPage
       }
     }
+    ...StoryCommentsComposerFragment
   }
 `;
 
@@ -49,6 +51,7 @@ export default function StoryCommentsSection({ story }: Props) {
 
   return (
     <div>
+      <StoryCommentsComposer story={data} />
       {data.comments.edges.map((edge) => (
         <Comment key={edge.node.id} comment={edge.node} />
       ))}
